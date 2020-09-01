@@ -24,6 +24,21 @@ const graph = svg
   .attr("height", graphHeight)
   .attr("translate", `tranform(${margin.left}, ${margin.top})`);
 
+// Creating the scales
+// Time scale for x-axis
+const x = d3.scaleTime().range([0, graphWidth]);
+
+// Linear scale for y-axis
+const y = d3.scaleLinear().range([graphHeight, 0]);
+
+// Axes groups
+const xAxisGroup = graph
+  .append("g")
+  .attr("class", "x-axis")
+  .attr("transform", `translate(0, ${graphHeight})`);
+
+const yAxisGroup = graph.append("g").attr("class", "y-axis");
+
 // Update function to re-render the visualizations
 const update = (data) => {
   console.log(data);

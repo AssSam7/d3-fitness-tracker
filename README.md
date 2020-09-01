@@ -245,3 +245,38 @@ const graph = svg
   .attr("height", graphHeight)
   .attr("translate", `tranform(${margin.left}, ${margin.top})`);
 ```
+
+## Scales and Axes ⚖️
+
+### 1. Creating the scales
+
+**Time scale (X)**
+Time scale takes the **domain** of the earliest date, latest date and outputs the range of values between **0** and the **graph width** as it's the x-axis
+
+```javascript
+const x = d3.scaleTime().range([0, graphWidth]);
+```
+
+**Linear scale (Y)**
+It takes the **domain** of 0 and the maximum distance and outputs the range of values between **graph height** and **0** as it goes from the top to bottom
+
+```javascript
+const y = d3.scaleLinear().range([graphHeight, 0]);
+```
+
+### 2. Axes groups
+
+**X-axis Group**
+
+```javascript
+const xAxisGroup = graph
+  .append("g")
+  .attr("class", "x-axis")
+  .attr("transform", `translate(0, ${graphHeight})`);
+```
+
+**Y-axis Group**
+
+```javascript
+const yAxisGroup = graph.append("g").attr("class", "y-axis");
+```
