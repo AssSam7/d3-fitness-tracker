@@ -1,3 +1,29 @@
+// Defining the margin properties
+const margin = {
+  top: 40,
+  right: 20,
+  bottom: 50,
+  left: 20,
+};
+
+// Graph dimensions
+const graphWidth = 560 - margin.left - margin.right;
+const graphHeight = 400 - margin.top - margin.bottom;
+
+// Appending SVG to the canvas container
+const svg = d3
+  .select(".canvas")
+  .append("svg")
+  .attr("width", graphWidth + margin.left + margin.right)
+  .attr("height", graphHeight + margin.top + margin.bottom);
+
+// Creating the graph group
+const graph = svg
+  .append("g")
+  .attr("width", graphWidth)
+  .attr("height", graphHeight)
+  .attr("translate", `tranform(${margin.left}, ${margin.top})`);
+
 // Update function to re-render the visualizations
 const update = (data) => {
   console.log(data);

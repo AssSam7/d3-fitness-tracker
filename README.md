@@ -190,3 +190,58 @@ db.collection("budget-planner").onSnapshot((res) => {
   update(data);
 });
 ```
+
+## Graph Metrics 📏
+
+Adding the margins and dimensions of the graph
+
+### 1. Margins
+
+Creating the margin properties using a javascript object
+
+```javascript
+const margin = {
+  top: 40,
+  right: 20,
+  bottom: 50,
+  left: 20,
+};
+```
+
+### 2. Dimensions
+
+**Graph width**
+
+```javascript
+const graphWidth = 560 - margin.left - margin.right;
+```
+
+**Graph height**
+
+```javascript
+const graphHeight = 400 - margin.top - margin.bottom;
+```
+
+## Creating SVG and graph group 🎞️
+
+Appending the **SVG** element to the canvas container and creating the graph group with the above dimensions
+
+## 1. SVG
+
+```javascript
+const svg = d3
+  .select(".canvas")
+  .append("svg")
+  .attr("width", graphWidth + margin.left + margin.right)
+  .attr("height", graphHeight + margin.top + margin.bottom);
+```
+
+## 2. Graph group
+
+```javascript
+const graph = svg
+  .append("g")
+  .attr("width", graphWidth)
+  .attr("height", graphHeight)
+  .attr("translate", `tranform(${margin.left}, ${margin.top})`);
+```
