@@ -43,7 +43,7 @@
             class="grey-text"
             type="text"
             id="cycling"
-            placeholder="Distance in km"
+            placeholder="Distance in metres"
           />
           <p class="center pink-text error text-lighten-1"></p>
         </form>
@@ -51,6 +51,25 @@
     </div>
 
     <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-firestore.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyDQQN1E2V8K8wFqjHKiSjimAHvjagZst0k",
+        authDomain: "d3-firebase-starter.firebaseapp.com",
+        databaseURL: "https://d3-firebase-starter.firebaseio.com",
+        projectId: "d3-firebase-starter",
+        storageBucket: "d3-firebase-starter.appspot.com",
+        messagingSenderId: "1020387918909",
+        appId: "1:1020387918909:web:508221bf07b68bc2079654",
+        measurementId: "G-XJ376VQ9BE",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
     <script src="app.js"></script>
     <script src="graph.js"></script>
   </body>

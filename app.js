@@ -28,3 +28,29 @@ btns.forEach((btn) => {
     input.setAttribute("id", activity);
   });
 });
+
+// Form submit
+form.addEventListener("submit", (e) => {
+  // Prevent the default action
+  e.preventDefault();
+
+  // Getting the distance from the input field
+  const distance = parseInt(input.value);
+
+  // Validation
+  if (distance) {
+    // Create a new document and add it to the 'fitness-activities' collection
+    db.collection("fitness-acitivites")
+      .add({
+        distance,
+        activity,
+        data: new Date().toString(),
+      })
+      .then(() => {
+        errMsg.textContent = "";
+        input.value = "";
+      });
+  } else {
+    errMsg.textContent = "Please enter the distance";
+  }
+});
