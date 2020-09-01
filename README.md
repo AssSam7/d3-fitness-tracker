@@ -9,7 +9,7 @@
 
 ## Demo 🪁
 
-https://pedantic-archimedes-31ed80.netlify.app
+https://romantic-mayer-ac2e7c.netlify.app/
 
 ## Getting Started 🚀
 
