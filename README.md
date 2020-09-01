@@ -163,7 +163,7 @@ We can use **onSnapshot()** method of the firestore. This method accepts a call-
 1. Apply this method on our collection where the data is stored
 2. There are 3 cases of data alteration in firestore
    - **Added**: When a new document is added to the collection.
-   - **Modified**: When a existing document properties are altered or new properties are added to an existing document.
+   - **Modified**: When an existing document properties are altered or new properties are added to an existing document.
    - **Deleted**: When an existing document is deleted.
 
 ```javascript
