@@ -66,7 +66,7 @@ const input = document.querySelector("input");
 const errMsg = document.querySelector(".error");
 ```
 
-## Fitness Activity Buttons
+## Fitness Activity Buttons 🔲
 
 These are the activity button which determine the type of the fitness activity like running, swimming, walking etc. Here those buttons **active** class needs to be changed on every click i.e. if **Running** button is clicked, it's class list should be added with **active** class and the current button element holding the active class needs to be removed.
 
@@ -147,7 +147,7 @@ db.collection("fitness-acitivites").add({
 
 ### 5. Form reset
 
-If everything goes well and document is stored, clear the input field and any error message.
+If everything goes well and document is stored, clear the input fields and any error message.
 
 ```javascript
 .then(() => {
