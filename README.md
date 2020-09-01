@@ -222,7 +222,7 @@ const graphWidth = 560 - margin.left - margin.right;
 const graphHeight = 400 - margin.top - margin.bottom;
 ```
 
-## Creating SVG and graph group 🎞️
+## Creating SVG and Graph group 🎞️
 
 Appending the **SVG** element to the canvas container and creating the graph group with the above dimensions
 
