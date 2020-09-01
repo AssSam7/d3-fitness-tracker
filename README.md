@@ -53,3 +53,105 @@ Get the below code from console.firebase.google.com and check out, Adding this p
   const db = firebase.firestore();
 </script>
 ```
+
+## DOM Elements 🌲
+
+These are the DOM elements which would be updated on a timely basis based on the back-end data.
+
+```javascript
+const btns = document.querySelectorAll("button");
+const form = document.querySelector("form");
+const formActivity = document.querySelector("form span");
+const input = document.querySelector("input");
+const errMsg = document.querySelector(".error");
+```
+
+## Fitness Activity Buttons
+
+These are the activity button which determine the type of the fitness activity like running, swimming, walking etc. Here those buttons **active** class needs to be changed on every click i.e. if **Running** button is clicked, it's class list should be added with **active** class and the current button element holding the active class needs to be removed.
+
+```javascript
+btns.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    // Get activity
+    activity = e.target.dataset.activity;
+
+    // Get active button
+    const activeBtn = document.querySelector(`button[class="active"]`);
+
+    // Remove 'active' class from that button
+    activeBtn.classList.remove("active");
+
+    // Add 'active' class on the current clicked button
+    btn.classList.add("active");
+
+    // Update the activity to the current clicked activity
+    formActivity.textContent = activity;
+
+    // Set id of the input field with current activity
+    input.setAttribute("id", activity);
+  });
+});
+```
+
+## Storing the data from the FORM 📋
+
+On every form submit, validating the input fields and creating a new document in the **fitness-activities** collection with the form values
+
+### 1. Prevent the default behaviour
+
+```javascript
+form.addEventListener("submit", (e) => {
+  // Prevent the default action
+  e.preventDefault();
+});
+```
+
+### 2. Getting the distance from the input field
+
+As the form values are string, they need to be converted to **integer** before sending them to the database
+
+```javascript
+const distance = parseInt(input.value);
+```
+
+### 3. Validations
+
+Store the distance if entered, else populate an error message
+
+```javascript
+if (distance) {
+    ...
+    ...
+    ...
+  } else {
+    errMsg.textContent = "Please enter the distance";
+  }
+```
+
+### 4. Create a new document and add it to the firestore
+
+The new document would consist of the following fields
+
+1. Distance (in mts)
+2. Activity
+3. Date (Current timestamp)
+
+```javascript
+db.collection("fitness-acitivites").add({
+  distance,
+  activity,
+  data: new Date().toString(),
+});
+```
+
+### 5. Form reset
+
+If everything goes well and document is stored, clear the input field and any error message.
+
+```javascript
+.then(() => {
+  errMsg.textContent = "";
+  input.value = "";
+});
+```
