@@ -155,3 +155,38 @@ If everything goes well and document is stored, clear the input fields and any e
   input.value = "";
 });
 ```
+
+## Real-time data updates ⌛
+
+We can use **onSnapshot()** method of the firestore. This method accepts a call-back as an argument with **res** as its parameter.
+
+1. Apply this method on our collection where the data is stored
+2. There are 3 cases of data alteration in firestore
+   - **Added**: When a new document is added to the collection.
+   - **Modified**: When a existing document properties are altered or new properties are added to an existing document.
+   - **Deleted**: When an existing document is deleted.
+
+```javascript
+db.collection("budget-planner").onSnapshot((res) => {
+  res.docChanges().forEach((change) => {
+    const doc = { ...change.doc.data(), id: change.doc.id };
+
+    switch (change.type) {
+      case "added":
+        data.push(doc);
+        break;
+      case "modified":
+        const index = data.findIndex((item) => item.id == doc.id);
+        data[index] = doc;
+        break;
+      case "removed":
+        data = data.filter((item) => item.id !== doc.id);
+        break;
+      default:
+        break;
+    }
+  });
+
+  update(data);
+});
+```
