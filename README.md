@@ -11,6 +11,13 @@
 
 https://romantic-mayer-ac2e7c.netlify.app/
 
+## Tech Stack 👩‍💻
+
+- 🌈 Materialize CSS
+- 🟨 Javascript (ES6+)
+- 🖋️ D3.JS
+- 🗃️ Firebase (Firestore)
+
 ## Getting Started 🚀
 
 ### 1. D3.js CDN
@@ -46,10 +53,3 @@ Get the below code from console.firebase.google.com and check out, Adding this p
   const db = firebase.firestore();
 </script>
 ```
-
-## Tech Stack 👩‍💻
-
-- Materialize CSS
-- Javascript (ES6+)
-- D3.JS
-- Firebase (Firestore)
