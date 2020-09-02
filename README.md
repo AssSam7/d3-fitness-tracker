@@ -285,7 +285,7 @@ const yAxisGroup = graph.append("g").attr("class", "y-axis");
 
 ### 1. Updating the domains
 
-Domains will be updated based on the data, hence these should be inside the **update()** function
+Domains will be updated based on the data, hence they should be inside the **update()** function
 
 **X-axis domain**
 
