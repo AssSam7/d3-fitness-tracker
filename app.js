@@ -44,7 +44,7 @@ form.addEventListener("submit", (e) => {
       .add({
         distance,
         activity,
-        data: new Date().toString(),
+        date: new Date().toString(),
       })
       .then(() => {
         errMsg.textContent = "";
