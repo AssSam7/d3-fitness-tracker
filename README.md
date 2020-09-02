@@ -281,7 +281,7 @@ const xAxisGroup = graph
 const yAxisGroup = graph.append("g").attr("class", "y-axis");
 ```
 
-## Drawing the graph 📈
+## Initalizing the graph 📈
 
 ### 1. Updating the domains
 
