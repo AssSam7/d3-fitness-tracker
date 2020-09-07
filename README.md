@@ -435,3 +435,127 @@ path
   .attr("stroke-width", 2)
   .attr("d", line);
 ```
+
+## Data points Hover Effects ✨
+
+When the data points are hovered, draw a visualization of lines where they meet the x-axis and y-axis
+
+### 1. Scaling the data points on hover
+
+Scale the data points for better visualization as the point is hovered
+
+**Mouse enter**
+Double the radius and change the fill color
+
+```javascript
+graph.selectAll("circle").on("mouseover", (d, i, n) => {
+  d3.select(n[i]).transition().duration(700).attr("r", 8).attr("fill", "#fff");
+});
+```
+
+**Mouse leave**
+Undo the transitions
+
+```javascript
+.on("mouseleave", (d, i, n) => {
+  d3.select(n[i])
+    .transition()
+    .duration(700)
+    .attr("r", 4)
+    .attr("fill", "gray");
+  });
+```
+
+### 2. Create dotted line group and append to the graph
+
+```javascript
+const dottedLine = graph.append("g").attr("class", "lines").style("opacity", 0);
+```
+
+### 3. Create x dotted line and append to the dotted line group
+
+```javascript
+const xDotLine = dottedLine
+  .append("line")
+  .attr("stroke", "#aaa")
+  .attr("stroke-width", 1)
+  .attr("stroke-dasharray", 4);
+```
+
+### 4. Create y dotted line and append to the dotted line group
+
+```javascript
+const yDotLine = dottedLine
+  .append("line")
+  .attr("stroke", "#aaa")
+  .attr("stroke-width", 1)
+  .attr("stroke-dasharray", 4);
+```
+
+### 5. Mouse Enter Plotting the dot lines
+
+**Set x dotted line coords (x1, x2, y1, y2)**
+
+```javascript
+xDotLine
+  .attr("x1", x(new Date(d.date)))
+  .attr("x2", x(new Date(d.date)))
+  .attr("y1", graphHeight)
+  .attr("y2", y(d.distance));
+```
+
+**Set y dotted line coords (x1, x2, y1, y2)**
+
+```javascript
+yDotLine
+  .attr("x1", 0)
+  .attr("x2", x(new Date(d.date)))
+  .attr("y1", y(d.distance))
+  .attr("y2", y(d.distance));
+```
+
+**Show the dotted line group (.style, opacity)**
+
+```javascript
+dottedLine.style("opacity", 1);
+```
+
+### 6. Mouse leave remove the plotted dot lines
+
+```javascript
+dottedLine.style("opacity", 0);
+```
+
+## Shading the area below 🖍️
+
+In this project, I added my own visualization of sharing the area below the plotted line graph
+
+### 1. Creating the area function
+
+The area function transforms each data point like (2, 35) into information that describes the shape. Each corresponds to an x position, an upper y position, **y1**, and a lower y position, **y0**. The odd thing here is that **y0** is set to the constant of **height**. This makes sense when you know that SVGs are positioned relative to the upper left corner of the graphic. Any distance **“down”** is a positive number, so a positive **height** means the bottom of the graphic.
+
+```javascript
+const area = d3
+  .area()
+  .x((d) => x(new Date(d.date)))
+  .y0(graphHeight)
+  .y1((d) => y(d.distance));
+```
+
+### 2. Create the area to shade (group)
+
+```javascript
+const shade = graph.append("g");
+```
+
+### 3. Adding path element to area group
+
+```javascript
+const shadePath = shade.append("path").attr("class", "area");
+```
+
+### 4. Applying the data and using the area
+
+```javascript
+shadePath.data([data]).attr("d", area);
+```

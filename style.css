@@ -33,3 +33,8 @@ form span {
   fill: #ccc;
   font-size: 14px;
 }
+
+.area {
+  fill: #00bfa5;
+  opacity: 0.1;
+}

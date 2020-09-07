@@ -35,13 +35,40 @@ const line = d3
 // Creating the path
 const path = graph.append("path");
 
+// Area for shading below
+const area = d3
+  .area()
+  .x((d) => x(new Date(d.date)))
+  .y0(graphHeight)
+  .y1((d) => y(d.distance));
+
+// Create the area to shade (group)
+const shade = graph.append("g");
+
+// Adding path element to area group
+const shadePath = shade.append("path").attr("class", "area");
+
 // update function
 const update = (data) => {
   // Create dotted line group and append to the graph
+  const dottedLine = graph
+    .append("g")
+    .attr("class", "lines")
+    .style("opacity", 0);
 
   // Create x dotted line and append to the dotted line group
+  const xDotLine = dottedLine
+    .append("line")
+    .attr("stroke", "#aaa")
+    .attr("stroke-width", 1)
+    .attr("stroke-dasharray", 4);
 
   // Create y dotted line and append to the dotted line group
+  const yDotLine = dottedLine
+    .append("line")
+    .attr("stroke", "#aaa")
+    .attr("stroke-width", 1)
+    .attr("stroke-dasharray", 4);
 
   // Updated data filtering based on activity
   data = data.filter((item) => item.activity === activity);
@@ -60,6 +87,9 @@ const update = (data) => {
     .attr("stroke", "#00bfa5")
     .attr("stroke-width", 2)
     .attr("d", line);
+
+  // Applying data to shaded path
+  shadePath.data([data]).attr("d", area);
 
   // create axes
   const xAxis = d3.axisBottom(x).ticks(4).tickFormat(d3.timeFormat("%b %d"));
@@ -101,8 +131,21 @@ const update = (data) => {
         .attr("fill", "#fff");
 
       // Set x dotted line coords (x1, x2, y1, y2)
+      xDotLine
+        .attr("x1", x(new Date(d.date)))
+        .attr("x2", x(new Date(d.date)))
+        .attr("y1", graphHeight)
+        .attr("y2", y(d.distance));
+
       // Set y dotted line coords (x1, x2, y1, y2)
+      yDotLine
+        .attr("x1", 0)
+        .attr("x2", x(new Date(d.date)))
+        .attr("y1", y(d.distance))
+        .attr("y2", y(d.distance));
+
       // Show the dotted line group (.style, opacity)
+      dottedLine.style("opacity", 1);
     })
     .on("mouseleave", (d, i, n) => {
       d3.select(n[i])
@@ -112,6 +155,7 @@ const update = (data) => {
         .attr("fill", "gray");
 
       // Hide the dotted line group
+      dottedLine.style("opacity", 0);
     });
 
   // Exit selection
