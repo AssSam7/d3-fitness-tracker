@@ -373,7 +373,9 @@ circles
   .attr("r", 4)
   .attr("cx", (d) => x(new Date(d.date)))
   .attr("cy", (d) => y(d.distance))
-  .attr("fill", "#ccc");
+  .attr("fill", "#ccc")
+  .attr("stroke", "#00bfa5")
+  .attr("stroke-width", 2);
 ```
 
 ### 4. Update points

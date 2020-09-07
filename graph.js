@@ -115,10 +115,12 @@ const update = (data) => {
   circles
     .enter()
     .append("circle")
-    .attr("r", 4)
+    .attr("r", 5)
     .attr("cx", (d) => x(new Date(d.date)))
     .attr("cy", (d) => y(d.distance))
-    .attr("fill", "#ccc");
+    .attr("fill", "#ccc")
+    .attr("stroke", "#00bfa5")
+    .attr("stroke-width", 2);
 
   // Data points (circle) hover effects
   graph
