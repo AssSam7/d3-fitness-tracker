@@ -37,6 +37,12 @@ const path = graph.append("path");
 
 // update function
 const update = (data) => {
+  // Create dotted line group and append to the graph
+
+  // Create x dotted line and append to the dotted line group
+
+  // Create y dotted line and append to the dotted line group
+
   // Updated data filtering based on activity
   data = data.filter((item) => item.activity === activity);
 
@@ -83,6 +89,30 @@ const update = (data) => {
     .attr("cx", (d) => x(new Date(d.date)))
     .attr("cy", (d) => y(d.distance))
     .attr("fill", "#ccc");
+
+  // Data points (circle) hover effects
+  graph
+    .selectAll("circle")
+    .on("mouseover", (d, i, n) => {
+      d3.select(n[i])
+        .transition()
+        .duration(700)
+        .attr("r", 8)
+        .attr("fill", "#fff");
+
+      // Set x dotted line coords (x1, x2, y1, y2)
+      // Set y dotted line coords (x1, x2, y1, y2)
+      // Show the dotted line group (.style, opacity)
+    })
+    .on("mouseleave", (d, i, n) => {
+      d3.select(n[i])
+        .transition()
+        .duration(700)
+        .attr("r", 4)
+        .attr("fill", "gray");
+
+      // Hide the dotted line group
+    });
 
   // Exit selection
   circles.exit().remove();
