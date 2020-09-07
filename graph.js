@@ -26,16 +26,34 @@ const xAxisGroup = graph
 
 const yAxisGroup = graph.append("g").attr("class", "y-axis");
 
+// Line path generator
+const line = d3
+  .line()
+  .x((d) => x(new Date(d.date)))
+  .y((d) => y(d.distance));
+
+// Creating the path
+const path = graph.append("path");
+
 // update function
 const update = (data) => {
   // Updated data filtering based on activity
   data = data.filter((item) => item.activity === activity);
 
+  // Sort the data based on dates
+  data.sort((a, b) => new Date(a.date) - new Date(b.date));
+
   // set scale domains
   x.domain(d3.extent(data, (d) => new Date(d.date)));
   y.domain([0, d3.max(data, (d) => d.distance)]);
 
-  console.log(x(new Date(data[0].date)));
+  // Update paths
+  path
+    .data([data])
+    .attr("fill", "none")
+    .attr("stroke", "#00bfa5")
+    .attr("stroke-width", 2)
+    .attr("d", line);
 
   // create axes
   const xAxis = d3.axisBottom(x).ticks(4).tickFormat(d3.timeFormat("%b %d"));

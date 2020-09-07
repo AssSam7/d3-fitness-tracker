@@ -341,3 +341,97 @@ xAxisGroup
   .attr("transform", "rotate(-40)")
   .attr("text-anchor", "end");
 ```
+
+## Drawing the points 💠
+
+Everytime the user changes the activity, update function must be called so that visualizations can be re-rendered
+
+### 1. Filtering the data based on the activity
+
+Separate the data based on activity
+
+```javascript
+data = data.filter((item) => item.activity === activity);
+```
+
+### 2. Creating the points (data points)
+
+Based on the filtered data, create the circles and append to the graph
+
+```javascript
+const circles = graph.selectAll("circle").data(data);
+```
+
+### 3. Add new points
+
+Now that points are created, render them to canvas from the enter selection
+
+```javascript
+circles
+  .enter()
+  .append("circle")
+  .attr("r", 4)
+  .attr("cx", (d) => x(new Date(d.date)))
+  .attr("cy", (d) => y(d.distance))
+  .attr("fill", "#ccc");
+```
+
+### 4. Update points
+
+If the data is changed, update the points i.e. change their **x** and **y** positions.
+
+```javascript
+circles.attr("cx", (d) => x(new Date(d.date))).attr("cy", (d) => y(d.distance));
+```
+
+### 5. Delete points
+
+Suppose the data gets deleted, remove the data points and re-render the visualizations using exit selection
+
+```javascript
+circles.exit().remove();
+```
+
+## Drawing the lines 🌠
+
+Now that the data points are plotted on to the graph, lines can be drawing from one point to another. Firstly line path generator needs to be used to draw them from one point to another and later those paths needs to be created based on the line path generator.
+
+### 1. Sorting the data based on dates
+
+Dates needs to be sorted so that we can order the lines from the initial dates to the latest dates. I have used the inbuilt **sort()** method of arrays in javascript
+
+```javascript
+data.sort((a, b) => new Date(a.date) - new Date(b.date));
+```
+
+### 2. Line path generator
+
+We can create this generator using **d3.line()** and determine the **x** and **y** values in the following way
+
+```javascript
+const line = d3
+  .line()
+  .x((d) => x(new Date(d.date)))
+  .y((d) => y(d.distance));
+```
+
+### 3. Creating the path
+
+Append the path to the graph group
+
+```javascript
+const path = graph.append("path");
+```
+
+### 4. Updating the paths
+
+Now that path element is already created, visualize it using the generated line path
+
+```javascript
+path
+  .data([data])
+  .attr("fill", "none")
+  .attr("stroke", "#00bfa5")
+  .attr("stroke-width", 2)
+  .attr("d", line);
+```
