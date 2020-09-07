@@ -28,6 +28,9 @@ const yAxisGroup = graph.append("g").attr("class", "y-axis");
 
 // update function
 const update = (data) => {
+  // Updated data filtering based on activity
+  data = data.filter((item) => item.activity === activity);
+
   // set scale domains
   x.domain(d3.extent(data, (d) => new Date(d.date)));
   y.domain([0, d3.max(data, (d) => d.distance)]);
@@ -45,6 +48,26 @@ const update = (data) => {
   // call axes
   xAxisGroup.call(xAxis);
   yAxisGroup.call(yAxis);
+
+  // Creating the points
+  const circles = graph.selectAll("circle").data(data);
+
+  // Update current points
+  circles
+    .attr("cx", (d) => x(new Date(d.date)))
+    .attr("cy", (d) => y(d.distance));
+
+  // Add new points
+  circles
+    .enter()
+    .append("circle")
+    .attr("r", 4)
+    .attr("cx", (d) => x(new Date(d.date)))
+    .attr("cy", (d) => y(d.distance))
+    .attr("fill", "#ccc");
+
+  // Exit selection
+  circles.exit().remove();
 
   // rotate axis text
   xAxisGroup

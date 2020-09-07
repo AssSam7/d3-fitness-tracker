@@ -26,6 +26,9 @@ btns.forEach((btn) => {
 
     // Set id of the input field with current activity
     input.setAttribute("id", activity);
+
+    // Update the data whenever the activity is changed
+    update(data);
   });
 });
 
