@@ -56,7 +56,7 @@ Get the below code from console.firebase.google.com and check out, Adding this p
 
 ## DOM Elements 🌲
 
-These are the DOM elements which would be updated on a timely basis based on the back-end data.
+These are the DOM elements which through which the data is send to the back-end
 
 ```javascript
 const btns = document.querySelectorAll("button");
@@ -563,9 +563,11 @@ shadePath.data([data]).attr("d", area);
 ```
 
 ## Contributor ✨
-* Twitter : [@malsaslam97](https://twitter.com/malsaslam97)
-* Github: [@AssSam7](https://github.com/AssSam7)
-* LinkedIn: [Aslam Mohammed](https://www.linkedin.com/in/malsaslam97/)
+
+- Twitter : [@malsaslam97](https://twitter.com/malsaslam97)
+- Github: [@AssSam7](https://github.com/AssSam7)
+- LinkedIn: [Aslam Mohammed](https://www.linkedin.com/in/malsaslam97/)
 
 ## Show your support
+
 Give a ⭐️ if you feel this application has some credibility

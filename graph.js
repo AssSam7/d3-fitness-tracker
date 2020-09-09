@@ -171,7 +171,7 @@ const update = (data) => {
 };
 
 // data and firestore
-var data = [];
+let data = [];
 
 db.collection("fitness-acitivites")
   .orderBy("date")
