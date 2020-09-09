@@ -56,7 +56,7 @@ Get the below code from console.firebase.google.com and check out, Adding this p
 
 ## DOM Elements 🌲
 
-These are the DOM elements which through which the data is send to the back-end
+These are the DOM elements through which the data is send to the back-end
 
 ```javascript
 const btns = document.querySelectorAll("button");
