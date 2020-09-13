@@ -81,12 +81,22 @@ const update = (data) => {
   y.domain([0, d3.max(data, (d) => d.distance)]);
 
   // Update paths
-  path
+  const updatedPath = path
     .data([data])
     .attr("fill", "none")
     .attr("stroke", "#00bfa5")
     .attr("stroke-width", 2)
     .attr("d", line);
+
+  const pathLength = updatedPath.node().getTotalLength();
+
+  const transitionPath = d3.transition().ease(d3.easeSin).duration(1500);
+
+  updatedPath
+    .attr("stroke-dashoffset", pathLength)
+    .attr("stroke-dasharray", pathLength)
+    .transition(transitionPath)
+    .attr("stroke-dashoffset", 0);
 
   // Applying data to shaded path
   shadePath.data([data]).attr("d", area);
@@ -115,9 +125,9 @@ const update = (data) => {
   circles
     .enter()
     .append("circle")
-    .attr("r", 5)
     .attr("cx", (d) => x(new Date(d.date)))
     .attr("cy", (d) => y(d.distance))
+    .attr("r", 5)
     .attr("fill", "#ccc")
     .attr("stroke", "#00bfa5")
     .attr("stroke-width", 2);
